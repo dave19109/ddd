@@ -1,6 +1,6 @@
-# ts-clean-code-node
+# @tackpay/ddd
 
-TypeScript Clean Code starter project for Node.js, with strict typing, modern tooling, and enforced code quality out of the box.
+Domain Driven Design (DDD) library for TypeScript. It provides a small set of building blocks (Entity, Aggregate, ValueObject, ID, events) with strict typing and modern tooling.
 
 ## Prerequisites
 
@@ -15,7 +15,8 @@ TypeScript Clean Code starter project for Node.js, with strict typing, modern to
 # Install dependencies
 pnpm install
 
-# Run the full check suite (types, lint, format, spelling)
+# Run the check suite (types, lint, format, spelling, etc.)
+# Note: it includes `lint-staged` checks and may require staged files.
 pnpm run check
 
 # Build the project
@@ -25,30 +26,53 @@ pnpm run build
 pnpm test
 ```
 
+## Installation (as a dependency)
+
+```bash
+pnpm add @tackpay/ddd
+
+# or
+npm i @tackpay/ddd
+
+# or
+yarn add @tackpay/ddd
+```
+
+## Usage
+
+```ts
+import { Aggregate, Entity, ID, ValueObject } from '@tackpay/ddd'
+import { Utils, Validator } from '@tackpay/ddd/common'
+
+// Use the exported primitives to model your domain.
+// (See `src/` and `test/` for more examples.)
+```
+
 ## Scripts
 
-| Command                  | Description                                                                        |
-| ------------------------ | ---------------------------------------------------------------------------------- |
-| `pnpm run build`         | Clean `dist/`, compile with tsup, copy package files                               |
-| `pnpm run check`         | Run all checks in parallel (types, lint, format, spelling, markdown, package.json) |
-| `pnpm run fix`           | Auto-fix lint, format, and markdown issues                                         |
-| `pnpm test`              | Run Jest test suite                                                                |
-| `pnpm run test:coverage` | Run tests with coverage report                                                     |
-| `pnpm run commit`        | Create a conventional commit via Commitizen                                        |
-| `pnpm run version`       | Bump version and generate changelog with standard-version                          |
-| `pnpm run update-deps`   | Check and update dependencies                                                      |
+| Command                  | Description                                                                     |
+| ------------------------ | ------------------------------------------------------------------------------- |
+| `pnpm run build`         | Clean `dist/`, compile with tsup, copy package files                            |
+| `pnpm run check`         | Run all checks in parallel (includes `lint-staged`, which expects staged files) |
+| `pnpm run fix`           | Auto-fix lint, format, and markdown issues                                      |
+| `pnpm test`              | Run Jest test suite                                                             |
+| `pnpm run test:coverage` | Run tests with coverage report                                                  |
+| `pnpm run commit`        | Create a conventional commit via Commitizen                                     |
+| `pnpm run version`       | Bump version and generate changelog with standard-version                       |
+| `pnpm run update-deps`   | Check and update dependencies                                                   |
 
 ## Project Structure
 
 ```text
 src/
-├── index.ts          # Entry point
-└── types/            # Custom type definitions
+├── index.ts          # Public API
+├── types.ts          # Shared types
+├── common/           # Shared utilities (subpath export: @tackpay/ddd/common)
+├── core/             # DDD building blocks (Entity, Aggregate, ValueObject, events, etc.)
+└── utils/            # Internal utilities
 test/
 ├── jest.setup.ts     # Test setup (reflect-metadata)
-└── unit/             # Unit tests
-packages/             # Shared packages (placeholder)
-docker/               # Dockerfile and docker-compose
+└── *.pkg.ts          # Package-level tests
 .github/              # CI/CD workflows and templates
 ```
 
