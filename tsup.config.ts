@@ -1,11 +1,22 @@
 import { defineConfig } from 'tsup'
 
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: {
+    index: 'src/index.ts',
+    common: 'src/common/index.ts'
+  },
+  outDir: 'dist',
+  format: ['esm', 'cjs'],
   tsconfig: 'tsconfig.build.json',
-  splitting: false,
+  platform: 'node',
+  target: 'node22',
+  dts: true,
   sourcemap: true,
   clean: true,
-  dts: true,
-  minify: true
+  splitting: false,
+  treeshake: true,
+  minify: false,
+  cjsInterop: true,
+  // Dependencies stay external (tsup defaults + package.json deps)
+  skipNodeModulesBundle: true
 })

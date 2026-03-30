@@ -5,6 +5,7 @@
     "rootDir": ".",
     "noEmit": false,
     "skipLibCheck": true,
+    "ignoreDeprecations": "6.0",
   },
   "exclude": [
     "test"

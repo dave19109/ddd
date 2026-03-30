@@ -41,7 +41,3 @@ runs:
     - name: 📥 Install dependencies with pnpm
       shell: bash
       run: pnpm install --frozen-lockfile
-
-    # - name: 💎 Generate Prisma models
-    #   shell: bash
-    #   run: pnpm run prisma:generate
