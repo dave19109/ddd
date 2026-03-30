@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+### [0.0.3](https://github.com/dave19109/ddd/compare/v0.0.2...v0.0.3) (2026-03-30)
+
+### Others
+
+- change to public ([d29c53b](https://github.com/dave19109/ddd/commit/d29c53b27fbe164a46ac1d4346677ffbd837cee6))
+
 ### [0.0.2](https://github.com/dave19109/ddd/compare/v0.0.1...v0.0.2) (2026-03-30)
 
 ### Bug Fixes
