@@ -1,0 +1,91 @@
+services:
+  server:
+    build:
+      context: ..
+      args:
+        - PORT=${PORT}
+      dockerfile: ./docker/Dockerfile
+    image: ${IMAGE_NAME}:prod
+    container_name: server
+    restart: always
+    depends_on:
+      - postgres
+    env_file:
+      - ../.env.docker
+    environment:
+      - TZ=${TZ}
+      - WAIT_HOSTS=postgres:5433
+    volumes:
+      - ${LOGS_VOLUME}:/app/logs
+    ports:
+      - ${EXTERNAL_PORT}:${APP_PORT}
+
+  postgres:
+    image: 'postgres:latest'
+    container_name: postgres
+    volumes:
+      - ${DB_VOLUME}:/var/lib/postgresql/data
+    ports:
+      - ${DB_PORT}:5433
+    environment:
+      POSTGRES_DB: ${DB_NAME:-starter}
+      POSTGRES_USER: ${DB_USERNAME:-starter}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+
+  pgweb:
+    image: sosedoff/pgweb
+    container_name: pgweb
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - PGWEB_DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres:5433/${DB_NAME}?sslmode=disable
+      - TZ=${TZ}
+    ports:
+      - ${DB_MANAGER_PORT}:8082
+
+  redis:
+    image: redis:7
+    container_name: redis
+    restart: always
+    command: /bin/sh -c "redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}"
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ${REDIS_VOLUME}:/data
+    ports:
+      - ${REDIS_PORT}:6379
+
+  redis-commander:
+    image: rediscommander/redis-commander
+    container_name: redis-commander
+    restart: always
+    platform: linux/amd64
+    depends_on:
+      - redis
+    environment:
+      - REDIS_LABEL=${IMAGE_NAME}-redis-cache
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - TZ=${TZ}
+    ports:
+      - ${REDIS_MANAGER_PORT}:8082
+
+  # api:
+  #   image: "node:latest"
+  #   env_file: ".env.docker"
+  #   container_name: "starter-api"
+  #   volumes:
+  #     - "./:/source"
+  #     - "/source/node_modules"
+  #   working_dir: /source
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - "8000:8000"
+  #   command: bash -c "yarn && yarn dev"
+
+networks:
+  default:
+    name: ${IMAGE_NAME}-network
