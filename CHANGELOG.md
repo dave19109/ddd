@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+### [0.0.2](https://github.com/dave19109/ddd/compare/v0.0.1...v0.0.2) (2026-03-30)
+
+### Bug Fixes
+
+- remove action to psublish ([422f6d5](https://github.com/dave19109/ddd/commit/422f6d5875a403cca2c7edcda25c439d4c983b05))
+
 ### 0.0.1 (2026-03-30)
 
 ### Others
