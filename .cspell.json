@@ -31,7 +31,7 @@
     "**/coverage/**",
     "**/dist/**",
     "**/build/**",
-    "**/logs/**",
+    "**/logs/**"
   ],
   "dictionaries": [
     "typescript",
@@ -54,6 +54,7 @@
     "bullmq",
     "commitlintrc",
     "Davide",
+    "hella",
     "hsts",
     "iends",
     "Ijoi",
@@ -71,9 +72,11 @@
     "sosedoff",
     "tsyringe",
     "Uncapitalize",
+    "undispatched",
     "Unqueryable",
     "uuidv",
     "versionrc",
+    "warld",
     "weakcb"
   ]
 }

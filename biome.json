@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.9/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -30,7 +30,8 @@
       "recommended": true,
       "complexity": {
         "noExcessiveCognitiveComplexity": "warn",
-        "useSimplifiedLogicExpression": "error"
+        "useSimplifiedLogicExpression": "error",
+        "noStaticOnlyClass": "off"
       },
       "correctness": {
         "noUnusedImports": "error",
@@ -68,7 +69,13 @@
         "noConsole": {
           "level": "error",
           "options": {
-            "allow": ["assert", "error", "info", "warn", "debug"]
+            "allow": [
+              "assert",
+              "error",
+              "info",
+              "warn",
+              "debug"
+            ]
           }
         }
       }

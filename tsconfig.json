@@ -7,8 +7,11 @@
       "DOM"
     ],
     "typeRoots": [
-      "./src/types",
       "./node_modules/@types"
+    ],
+    "types": [
+      "node",
+      "jest"
     ],
     "moduleResolution": "nodenext",
     "outDir": "./build",
@@ -30,14 +33,17 @@
     "strictPropertyInitialization": false,
     "skipLibCheck": true,
     "isolatedModules": true,
-    // "paths": {},
+    "paths": {
+      "#common": [
+        "./src/common"
+      ],
+    },
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "pretty": true,
   },
   "include": [
     "src",
-    "packages",
     "test"
   ],
   "exclude": [

@@ -1,0 +1,85 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish npm package
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: starter_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: secret
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.15.1
+          registry-url: https://registry.npmjs.org
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build package
+        run: pnpm build
+
+      - name: Run tests
+        run: pnpm test
+        env:
+          NODE_ENV: test
+          DB_CLIENT: pg
+          DB_PORT: 5432
+          DB_HOST: 127.0.0.1
+          DB_USER: postgres
+          DB_PASSWORD: secret
+          TEST_DB_NAME: starter_test
+          TEST_APP_PORT: 8888
+          ACCESS_TOKEN_SECRET_KEY: "somerandoma"
+          REFRESH_TOKEN_SECRET_KEY: "somerandomr"
+
+      - name: Publish to npm
+        shell: bash
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          VERSION=$(node -p 'require("./package.json").version')
+          echo "Publishing package version: $VERSION"
+          npm publish --registry https://registry.npmjs.org --ignore-scripts 2>&1 | tee npm-publish.log
+
+      - name: npm publish logs (tail)
+        if: failure()
+        shell: bash
+        run: |
+          echo "=== npm publish log (last 200 lines) ==="
+          tail -n 200 npm-publish.log || true
+
