@@ -1,6 +1,6 @@
 {
   "name": "@tackpay/ddd",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Domain Driven Design (DDD) library for TypeScript",
   "private": false,
   "files": [

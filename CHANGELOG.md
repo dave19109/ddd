@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+### [0.0.4](https://github.com/dave19109/ddd/compare/v0.0.3...v0.0.4) (2026-03-30)
+
+### Others
+
+- add publish command ([8a257f2](https://github.com/dave19109/ddd/commit/8a257f21734b7fcf2a651c260e4ebb45f0d6e148))
+
 ### [0.0.3](https://github.com/dave19109/ddd/compare/v0.0.2...v0.0.3) (2026-03-30)
 
 ### Others
