@@ -48,6 +48,7 @@
     "reset-hard": "git clean -dfx && git reset --hard && pnpm install",
     "update-deps": "npm-check-updates -u",
     "prepare-release": "run-s reset-hard version",
+    "publish": "pnpm build && npm publish --access public",
     "test": "jest",
     "test:coverage": "pnpm test --coverage --silent",
     "prepare": "husky"
