@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [0.0.5](https://github.com/dave19109/ddd/compare/v0.0.4...v0.0.5) (2026-03-31)
+
+### Others
+
+- update events and packages ([13e8db7](https://github.com/dave19109/ddd/commit/13e8db7d6acbc24dba20068e2463e4bf08c2964a))
+- update readme ([d4bcaa0](https://github.com/dave19109/ddd/commit/d4bcaa04b86d53e3bbd54af1ced6c663de5add96))
+
 ### [0.0.4](https://github.com/dave19109/ddd/compare/v0.0.3...v0.0.4) (2026-03-30)
 
 ### Others
