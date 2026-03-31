@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: Not need to transform any type */
 import type {
   _Aggregate,
   EntityProps,
@@ -20,10 +21,10 @@ import { ID } from './id'
  * on event-related operations.
  */
 export class Aggregate<Props extends EntityProps> extends Entity<Props> {
-  private _domainEvents: TsEvents<this>
+  private _domainEvents: TsEvents<any>
   private _dispatchEventsAmount: number
 
-  constructor(props: Props, config?: GettersAndSettersSettings, events?: TsEvents<_Aggregate<Props>>) {
+  constructor(props: Props, config?: GettersAndSettersSettings, events?: TsEvents<_Aggregate<any>>) {
     super(props, config)
     this._dispatchEventsAmount = 0
     this._domainEvents = new TsEvents(this)
@@ -128,7 +129,7 @@ export class Aggregate<Props extends EntityProps> extends Entity<Props> {
    * @description Adds a new event to the aggregate.
    * @param event The event object containing the event name, handler, and options.
    */
-  addEvent(event: EventHandler<this>): void
+  addEvent(event: EventHandler<any>): void
 
   /**
    * @description Adds a new event to the aggregate.
@@ -136,9 +137,9 @@ export class Aggregate<Props extends EntityProps> extends Entity<Props> {
    * @param handler The event handler function.
    * @param options Additional options for the event.
    */
-  addEvent(eventName: EventName, handler: Handler<this>, options?: Options): void
+  addEvent(eventName: EventName, handler: Handler<any>, options?: Options): void
 
-  addEvent(eventNameOrEvent: EventName | EventHandler<this>, handler?: Handler<this>, options?: Options): void {
+  addEvent(eventNameOrEvent: EventName | EventHandler<any>, handler?: Handler<any>, options?: Options): void {
     if (typeof eventNameOrEvent === 'string' && handler) {
       this._domainEvents.addEvent(eventNameOrEvent, handler ?? null, options)
       return

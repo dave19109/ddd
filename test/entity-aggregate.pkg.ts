@@ -105,4 +105,19 @@ describe('DDD Aggregate', () => {
     expect(deleted).toBe(1)
     expect(aggregate.eventsMetrics.current).toBe(1)
   })
+
+  describe('Aggregate object serialization', () => {
+    it('with enum value props', () => {
+      enum Name {
+        CART = 'cart',
+        ORDER = 'order',
+        USER = 'user'
+      }
+      const aggregate = Aggregate.create({ id: 'agg-2', name: Name.CART }) as Aggregate<{ id: string; name: Name }>
+
+      const obj = aggregate.toObject()
+
+      expect(obj.name).toBe(Name.CART)
+    })
+  })
 })
